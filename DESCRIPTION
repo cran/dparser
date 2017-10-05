@@ -1,6 +1,6 @@
 Package: dparser
 Title: Port of Dparser Package
-Version: 0.1.6
+Version: 0.1.7
 Authors@R: c(person("Matthew", "Fidler", email = "matthew.fidler@gmail.com", role = c("aut", "cre")),
 	   person("John", "Plevyak", role = c("aut"), email = "jplevyak@gmail.com"))
 Imports: digest, methods
@@ -20,9 +20,9 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 NeedsCompilation: yes
-Packaged: 2017-10-05 03:35:49 UTC; FIDLEMA3
+Packaged: 2017-10-05 14:11:28 UTC; FIDLEMA3
 Author: Matthew Fidler [aut, cre],
   John Plevyak [aut]
 Maintainer: Matthew Fidler <matthew.fidler@gmail.com>
 Repository: CRAN
-Date/Publication: 2017-10-05 04:00:25 UTC
+Date/Publication: 2017-10-05 15:58:17 UTC

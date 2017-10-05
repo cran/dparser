@@ -1,9 +1,9 @@
-d9e6fd8dc991251b00c523f620cba06b *DESCRIPTION
+3a5d6e68e2308ef6aa68b69d6d3040e1 *DESCRIPTION
 ef1e8084130822a7d9f8adc6a371eb16 *LICENSE
 9bb6fd79cf8d8f828434cad6688e92b9 *NAMESPACE
 ced400a737b4cbb52308d90ae8d21d45 *R/Rparse.R
 8f913453edb73041add6166a397064c1 *R/dparser.R
-677fa3e514a501a47a7719b714060b7b *R/version.R
+b3fbea311bd354cd0c87856d24a23366 *R/version.R
 ae4710bbaa70134ebb044350838b8ce7 *inst/ansic.test.g
 cd9370d84cb4b9518e99978ae5a12ab7 *inst/tran.g
 23f5719a21cdadd5887a54af89673230 *man/dpDefaultSkip.Rd
@@ -23,7 +23,7 @@ c5b4943da511649eb8d5461bcbed2c58 *src/d.h
 829820ec3eb9856ee4d23c904d6cd82c *src/dparse.h
 fd82b0f70b83b2cf7604a074eeadf26a *src/dparse_tables.h
 5c45297956eed7cf7783b40a3882b5e5 *src/dparser.c
-38793688d8f7dc743e57bf14beafa220 *src/dparser.h
+15795ad6695283b18ce64471233ea3bf *src/dparser.h
 49939f817b01afc3eb96130cea33a6ea *src/dsymtab.h
 5becd1e05bda9aec5d5caf288182a740 *src/gram.c
 cf096fc7217978e8a93b2acbcd0066c0 *src/gram.h
@@ -48,7 +48,7 @@ cc6e0fe5215771886c7ac481f186b60c *src/symtab.c
 75e0302f0411e67ac1c89e27444f19ad *src/util.c
 a3a0b31bd4c758a2daaa86c08a652574 *src/util.h
 9b6cf46890392422826ace628b5143a7 *src/version.c
-19d9cf2551f4b4b3939df74a366feca8 *src/write_tables.c
+0fbbb44c730df5da352e8ac114d0d777 *src/write_tables.c
 02a60615975e8f94657682ec540fe319 *src/write_tables.h
 2a899071f0e504919a0b3f040573e496 *tests/testthat.R
 ae4710bbaa70134ebb044350838b8ce7 *tests/testthat/ansic.test.g
