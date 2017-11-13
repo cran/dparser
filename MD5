@@ -1,9 +1,9 @@
-3a5d6e68e2308ef6aa68b69d6d3040e1 *DESCRIPTION
+0cb63d79c58cb1a519d8770f5c25b514 *DESCRIPTION
 ef1e8084130822a7d9f8adc6a371eb16 *LICENSE
 9bb6fd79cf8d8f828434cad6688e92b9 *NAMESPACE
 ced400a737b4cbb52308d90ae8d21d45 *R/Rparse.R
 8f913453edb73041add6166a397064c1 *R/dparser.R
-b3fbea311bd354cd0c87856d24a23366 *R/version.R
+78604d3359420ae6b98a25ace49fdf49 *R/version.R
 ae4710bbaa70134ebb044350838b8ce7 *inst/ansic.test.g
 cd9370d84cb4b9518e99978ae5a12ab7 *inst/tran.g
 23f5719a21cdadd5887a54af89673230 *man/dpDefaultSkip.Rd
@@ -13,12 +13,12 @@ b74f62340acf1428f343b1d9e8bd2856 *man/dpReload.Rd
 7c58a8a298070aeab4826582daa738a3 *man/dpRparse.Rd
 ffeec0597a2848106914f3fb7fd18a86 *man/dpVersion.Rd
 818313ffa219c3f9968cc7162135c8b7 *man/dparse.Rd
-65a391bc5fa6b9bcee46283caf7bc8c0 *man/dparser-package.Rd
+89a8e31081e8e5044889cfb51666f3e9 *man/dparser-package.Rd
 bb3287afb390648278dd3a8e407c1c8a *man/dparserFunction-class.Rd
 69b10147165686c7b9b9ff3f51582274 *man/gc.dparser.Rd
 25a16133f42d11df155fd8d7e1b3198e *man/mkdparse.Rd
 9ba7586982660e566a01ba782ec2aca4 *man/show-dparserFunction-method.Rd
-d17b0fc87b3f37c97b821be84f545b5e *src/Makevars
+232fda56a0ae5ab0e27b42a3c4373936 *src/Makevars
 c5b4943da511649eb8d5461bcbed2c58 *src/d.h
 829820ec3eb9856ee4d23c904d6cd82c *src/dparse.h
 fd82b0f70b83b2cf7604a074eeadf26a *src/dparse_tables.h
@@ -37,7 +37,7 @@ a12ed623080471273f7a56cc8d381e07 *src/lex.c
 e5507e164eb79fb63dd69d9604542a8b *src/mkdparse.c
 632fda547c7af55c3ca04fed28eeee3d *src/mkdparse.h
 5d651ffaa940903e36d9c84096eb6b54 *src/mkdparser.c
-83be0b523fd633ada09f09621f56766f *src/parse.c
+292793c49aa19048e0742e709bb9e16b *src/parse.c
 bda34a6a004e8ebc6e5d6e31380fc32b *src/parse.h
 bb54380f968894e46b3139f01cec930b *src/rdparse.c
 f229037ec6a29b4e298ead07b571a24b *src/read_binary.c
@@ -48,7 +48,7 @@ cc6e0fe5215771886c7ac481f186b60c *src/symtab.c
 75e0302f0411e67ac1c89e27444f19ad *src/util.c
 a3a0b31bd4c758a2daaa86c08a652574 *src/util.h
 9b6cf46890392422826ace628b5143a7 *src/version.c
-0fbbb44c730df5da352e8ac114d0d777 *src/write_tables.c
+1f94df3be089c70d7a1d77447d359af1 *src/write_tables.c
 02a60615975e8f94657682ec540fe319 *src/write_tables.h
 2a899071f0e504919a0b3f040573e496 *tests/testthat.R
 ae4710bbaa70134ebb044350838b8ce7 *tests/testthat/ansic.test.g
