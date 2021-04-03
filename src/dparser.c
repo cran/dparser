@@ -6,10 +6,7 @@ Register C callables to R.
 #include <Rdefines.h>
 #include <Rconfig.h>
 #include <R_ext/Rdynload.h>
-#include "gramgram.h"
 #include "d.h"
-#include "mkdparse.h"
-#include "dparse.h"
 SEXP dparse_sexp(SEXP sexp_fileName, SEXP sexp_start_state, SEXP sexp_save_parse_tree, SEXP sexp_partial_parses, SEXP sexp_compare_stacks, SEXP sexp_commit_actions_interval, SEXP sexp_fixup, SEXP sexp_fixup_ebnf, SEXP sexp_nogreedy, SEXP sexp_noheight, SEXP sexp_use_filename, SEXP sexp_sizeof_parse_node, SEXP sexp_verbose, SEXP sexp_children_first, SEXP fn, SEXP skip_fn, SEXP env, D_ParserTables pt);
 
 extern int d_use_r_headers;
@@ -58,7 +55,7 @@ void set_d_file_name(char *x){
 }
 
 D_Parser *new_D_Parser(struct D_ParserTables *t, int sizeof_ParseNode_User);
-void free_D_Parser(D_Parser *p); 
+void free_D_Parser(D_Parser *p);
 D_ParseNode *dparse(D_Parser *p, char *buf, int buf_len);
 void free_D_ParseNode(D_Parser *p, D_ParseNode *pn);
 void free_D_ParseTreeBelow(D_Parser *p, D_ParseNode *pn);
@@ -66,7 +63,7 @@ int d_get_number_of_children(D_ParseNode *pn);
 D_ParseNode *d_get_child(D_ParseNode *pn, int child);
 D_ParseNode *d_find_in_tree(D_ParseNode *pn, int symbol);
 char *d_ws_before(D_Parser *p, D_ParseNode *pn); 
-char *d_ws_after(D_Parser *p, D_ParseNode *pn); 
+char *d_ws_after(D_Parser *p, D_ParseNode *pn);  
 void d_pass(D_Parser *p, D_ParseNode *pn, int pass_number);
 int resolve_amb_greedy(D_Parser *dp, int n, D_ParseNode **v);
 char *d_dup_pathname_str(const char *str);
@@ -79,7 +76,6 @@ D_Scope *global_D_Scope(D_Scope *scope);
 D_Scope *scope_D_Scope(D_Scope *current, D_Scope *scope);
 void free_D_Scope(D_Scope *st, int force);
 D_Sym *new_D_Sym(D_Scope *st, char *name, char *end, int sizeof_D_Sym);
-void free_D_Sym(D_Sym *sym);
 D_Sym *find_D_Sym(D_Scope *st, char *name, char *end);
 D_Sym *find_global_D_Sym(D_Scope *st, char *name, char *end);
 D_Sym *update_D_Sym(D_Sym *sym, D_Scope **st, int sizeof_D_Sym);
@@ -97,7 +93,7 @@ void print_rdebug_grammar(Grammar *g, char *pathname);
 void print_states(Grammar *g);
 void print_rule(Rule *r);
 void print_term(Term *t);
-Production *lookup_production(Grammar *g, char *name, int len);
+Production *lookup_production(Grammar *g, char *name, uint len);
 Rule *new_rule(Grammar *g, Production *p);
 Elem *new_elem_nterm(Production *p, Rule *r);
 void new_declaration(Grammar *g, Elem *e, uint kind);
@@ -109,17 +105,17 @@ void new_token(Grammar *g, char *s, char *e);
 Elem *new_code(Grammar *g, char *s, char *e, Rule *r);
 void add_global_code(Grammar *g, char *start, char *end, int line);
 Production *new_internal_production(Grammar *g, Production *p);
-Elem * dup_elem(Elem *e, Rule *r);
+Elem *dup_elem(Elem *e, Rule *r);
 void add_declaration(Grammar *g, char *start, char *end, uint kind, uint line);
 void add_pass(Grammar *g, char *start, char *end, uint kind, uint line);
 void add_pass_code(Grammar *g, Rule *r, char *pass_start, char *pass_end, char *code_start, char *code_end, uint line, uint pass_line);
 D_Pass *find_pass(Grammar *g, char *start, char *end);
 void conditional_EBNF(Grammar *g); 
-void star_EBNF(Grammar *g); 
-void plus_EBNF(Grammar *g); 
+void star_EBNF(Grammar *g);        
+void plus_EBNF(Grammar *g);        
 void rep_EBNF(Grammar *g, int minimum, int maximum);
 void initialize_productions(Grammar *g);
-int state_for_declaration(Grammar *g, int iproduction);
+uint state_for_declaration(Grammar *g, uint iproduction);
 void build_scanners(struct Grammar *g);
 void build_LR_tables(Grammar *g);
 void sort_VecAction(VecAction *v);
@@ -128,13 +124,13 @@ State *goto_State(State *s, Elem *e);
 void free_Action(Action *a);
 void mkdparse(struct Grammar *g, char *grammar_pathname);
 void mkdparse_from_string(struct Grammar *g, char *str);
-D_ParseNode * ambiguity_count_fn(D_Parser *pp, int n, D_ParseNode **v);
-BinaryTables * read_binary_tables(char *file_name, D_ReductionCode spec_code, D_ReductionCode final_code);
-BinaryTables * read_binary_tables_from_file(FILE *fp, D_ReductionCode spec_code, D_ReductionCode final_code);
-BinaryTables * read_binary_tables_from_string(unsigned char *buf, D_ReductionCode spec_code, D_ReductionCode final_code);
-void free_BinaryTables(BinaryTables * binary_tables);
+D_ParseNode *ambiguity_count_fn(D_Parser *pp, int n, D_ParseNode **v);
+BinaryTables *read_binary_tables(char *file_name, D_ReductionCode spec_code, D_ReductionCode final_code);
+BinaryTables *read_binary_tables_from_file(FILE *fp, D_ReductionCode spec_code, D_ReductionCode final_code);
+BinaryTables *read_binary_tables_from_string(unsigned char *buf, D_ReductionCode spec_code, D_ReductionCode final_code);
+void free_BinaryTables(BinaryTables *binary_tables);
 int scan_buffer(d_loc_t *loc, D_State *st, ShiftResult *result);
-void vec_add_internal(void *v,  void *elem);
+void vec_add_internal(void *v, void *elem);
 int vec_eq(void *v, void *vv);
 int set_find(void *v, void *t);
 int set_add(void *v, void *t);
@@ -154,8 +150,12 @@ char *escape_string_single_quote(char *s);
 int write_c_tables(Grammar *g);
 int write_binary_tables(Grammar *g);
 int write_binary_tables_to_file(Grammar *g, FILE *fp);
+int write_binary_tables_to_string(Grammar *g, unsigned char **str, unsigned int *str_len);
 
 SEXP cDparser(SEXP fileName, SEXP sexp_output_file, SEXP set_op_priority_from_rule , SEXP right_recursive_BNF , SEXP states_for_whitespace , SEXP states_for_all_nterms , SEXP tokenizer , SEXP longest_match , SEXP sexp_grammar_ident , SEXP scanner_blocks , SEXP write_line_directives , SEXP rdebug, SEXP verbose, SEXP sexp_write_extension, SEXP write_header, SEXP token_type, SEXP use_r_header);
+
+
+void __freeP();
 
 void R_init_dparser(DllInfo *info){
   R_CallMethodDef callMethods[]  = {
@@ -164,6 +164,7 @@ void R_init_dparser(DllInfo *info){
   };
   R_registerRoutines(info, NULL, callMethods, NULL, NULL);
   R_useDynamicSymbols(info, FALSE);
+  R_RegisterCCallable("dparser","__freeP",(DL_FUNC) __freeP);
   R_RegisterCCallable("dparser","dparse_sexp",(DL_FUNC) dparse_sexp);
   R_RegisterCCallable("dparser","set_d_file_name",(DL_FUNC) set_d_file_name);
   R_RegisterCCallable("dparser","get_d_debug_level",(DL_FUNC) get_d_debug_level);
@@ -176,6 +177,7 @@ void R_init_dparser(DllInfo *info){
   R_RegisterCCallable("dparser","set_d_use_file_name",(DL_FUNC) set_d_use_file_name);
   R_RegisterCCallable("dparser","set_d_rdebug_grammar_level",(DL_FUNC) set_d_rdebug_grammar_level);
   R_RegisterCCallable("dparser","set_d_use_r_headers",(DL_FUNC) set_d_use_r_headers);
+  R_RegisterCCallable("dparser","write_binary_tables_to_string",(DL_FUNC) write_binary_tables_to_string);
   R_RegisterCCallable("dparser","write_binary_tables_to_file",(DL_FUNC) write_binary_tables_to_file);
   R_RegisterCCallable("dparser","write_binary_tables",(DL_FUNC) write_binary_tables);
   R_RegisterCCallable("dparser","write_c_tables",(DL_FUNC) write_c_tables);
@@ -213,8 +215,8 @@ void R_init_dparser(DllInfo *info){
   R_RegisterCCallable("dparser","state_for_declaration",(DL_FUNC) state_for_declaration);
   R_RegisterCCallable("dparser","initialize_productions",(DL_FUNC) initialize_productions);
   R_RegisterCCallable("dparser","rep_EBNF",(DL_FUNC) rep_EBNF);
-  R_RegisterCCallable("dparser","plus_EBNF ",(DL_FUNC) plus_EBNF );
-  R_RegisterCCallable("dparser","star_EBNF ",(DL_FUNC) star_EBNF );
+  R_RegisterCCallable("dparser","plus_EBNF        ",(DL_FUNC) plus_EBNF        );
+  R_RegisterCCallable("dparser","star_EBNF        ",(DL_FUNC) star_EBNF        );
   R_RegisterCCallable("dparser","conditional_EBNF ",(DL_FUNC) conditional_EBNF );
   R_RegisterCCallable("dparser","find_pass",(DL_FUNC) find_pass);
   R_RegisterCCallable("dparser","add_pass_code",(DL_FUNC) add_pass_code);
@@ -250,7 +252,6 @@ void R_init_dparser(DllInfo *info){
   R_RegisterCCallable("dparser","update_D_Sym",(DL_FUNC) update_D_Sym);
   R_RegisterCCallable("dparser","find_global_D_Sym",(DL_FUNC) find_global_D_Sym);
   R_RegisterCCallable("dparser","find_D_Sym",(DL_FUNC) find_D_Sym);
-  R_RegisterCCallable("dparser","free_D_Sym",(DL_FUNC) free_D_Sym);
   R_RegisterCCallable("dparser","new_D_Sym",(DL_FUNC) new_D_Sym);
   R_RegisterCCallable("dparser","free_D_Scope",(DL_FUNC) free_D_Scope);
   R_RegisterCCallable("dparser","scope_D_Scope",(DL_FUNC) scope_D_Scope);
@@ -263,7 +264,7 @@ void R_init_dparser(DllInfo *info){
   R_RegisterCCallable("dparser","d_dup_pathname_str",(DL_FUNC) d_dup_pathname_str);
   R_RegisterCCallable("dparser","resolve_amb_greedy",(DL_FUNC) resolve_amb_greedy);
   R_RegisterCCallable("dparser","d_pass",(DL_FUNC) d_pass);
-  R_RegisterCCallable("dparser","d_ws_after ",(DL_FUNC) d_ws_after );
+  R_RegisterCCallable("dparser","d_ws_after  ",(DL_FUNC) d_ws_after  );
   R_RegisterCCallable("dparser","d_ws_before ",(DL_FUNC) d_ws_before );
   R_RegisterCCallable("dparser","d_find_in_tree",(DL_FUNC) d_find_in_tree);
   R_RegisterCCallable("dparser","d_get_child",(DL_FUNC) d_get_child);
@@ -271,6 +272,11 @@ void R_init_dparser(DllInfo *info){
   R_RegisterCCallable("dparser","free_D_ParseTreeBelow",(DL_FUNC) free_D_ParseTreeBelow);
   R_RegisterCCallable("dparser","free_D_ParseNode",(DL_FUNC) free_D_ParseNode);
   R_RegisterCCallable("dparser","dparse",(DL_FUNC) dparse);
-  R_RegisterCCallable("dparser","free_D_Parser ",(DL_FUNC) free_D_Parser );
+  R_RegisterCCallable("dparser","free_D_Parser",(DL_FUNC) free_D_Parser);
   R_RegisterCCallable("dparser","new_D_Parser",(DL_FUNC) new_D_Parser);
 }
+
+void R_unload_dparser() {
+  __freeP();
+}
+

@@ -159,7 +159,9 @@ refresh <- function(){ # nocov start
 ##' @examples
 ##'
 ##' ## This makes the ANSI c grammar file to parse C code:
-##' mkdparse(system.file("ansic.test.g", package = "dparser"),"ansic_gram.c", grammar_ident="ascii_C");
+##' mkdparse(system.file("ansic.test.g", package = "dparser"),
+##'         file.path(tempdir(), "ansic_gram.c"),
+##'          grammar_ident="ascii_C")
 ##' @export
 mkdparse <- function(file,outputFile,
                      set_op_priority_from_rule = FALSE,
@@ -179,26 +181,26 @@ mkdparse <- function(file,outputFile,
                      write_extension="c",
                      use_r_header = TRUE
                      ){
-    file <- gsub("\\\\","/",file);
+    file <- gsub("\\\\","/",normalizePath(file))
     if (missing(write_header) || write_header == "IfEmpty"){
         write_header <- -1;
     }
     if (ident_from_filename){
         ## Put ident from the filename
-        grammar_ident = (gsub("[.][^.]$","",basename(file)));
+        grammar_ident = (gsub("[.][^.]$","",basename(file)))
     }
     if (missing(outputFile)){
-        outputFile <- file.path(dirname(file),paste0(basename(file),".d_parser.",write_extension));
+        outputFile <- file.path(dirname(file),paste0(basename(file),".d_parser.",write_extension))
     } else if (dir.exists(outputFile)){
-        outputFile <- file.path(outputFile,paste0(basename(file),".d_parser.",write_extension));
+        outputFile <- file.path(outputFile,paste0(basename(file),".d_parser.",write_extension))
     }
-    outputFile <- gsub("\\\\","/",outputFile);
+    outputFile <- gsub("\\\\","/",suppressWarnings(normalizePath(outputFile)))
     if (missing(token_type)){
-        token_type <- 0;
+        token_type <- 0
     } else if (token_type == "enum"){
-        token_type <- 1;
+        token_type <- 1
     } else {
-        token_type <- 0;
+        token_type <- 0
     }
     .Call(cDparser,
           file,
@@ -218,8 +220,8 @@ mkdparse <- function(file,outputFile,
           as.integer(write_header),
           as.integer(token_type),
           as.integer(use_r_header),
-          PACKAGE="dparser");
-    return(invisible());
+          PACKAGE="dparser")
+    return(invisible())
 }
 
 ##' Return the include directory
@@ -247,6 +249,72 @@ dpIncludeDir <- function(...){
         }
         ## nocov end
     }
+}
+
+##' A S4 class for dparser functions
+##'
+##' The data here is the function to be called.
+##'
+##' @slot env contains the environment where the grammar name and dll
+##'     files are stored.
+##' @slot .Data is the function data
+##'
+##'@keywords internal
+##'@export
+setClass("dparserFunction",
+         representation(
+             env="environment"),
+         contains="function")
+
+##' Print the s4 object
+##' @param x dparserFunction to print.
+##' @keywords internal
+##' @aliases show,dparserFunction-method
+setMethod("show", "dparserFunction", function(object){
+    cat("An object of class 'dparserFunction'\n");
+    dat <- object@.Data;
+    print(dat);
+    grammar <- object@env$grammar;
+    dll.file <- object@env$dll.file;
+    cat(sprintf("Grammar File: %s\nDll File: %s\n", grammar, dll.file));
+})
+
+gc.items <- c()
+
+##' Garbage collection for dpaser functions
+##'
+##' This will delete the dynamically created dll upon garbage
+##' collection.
+##'
+##' @template garbage
+##'
+##' @param env Environment that is being garbage collected.
+##' @return Nothing.
+##' @author Matthew L. Fidler
+##' @keywords internal
+##' @export
+gc.dparser <- function(env){
+    dll.file <- env$dll.file;
+    if (!is.na(gc.items[dll.file])){
+        if (gc.items[dll.file] > 1){
+            tmp <- gc.items;
+            tmp[dll.file] <- tmp[dll.file] - 1;
+            assignInMyNamespace("gc.items", tmp);
+        } else {
+            if (file.exists(dll.file)){
+                generated <- env$generated;
+                if ((generated && getOption("dpaser.rm.unnamed.parser.dll", TRUE)) ||
+                    (!generated && getOption("dpaser.rm.named.parser.dll", FALSE))){
+                    rc <- try(dyn.unload(dll.file), silent = TRUE);
+                    unlink(dll.file)
+                }
+            }
+            tmp <- gc.items;
+            tmp <- tmp[names(tmp) != dll.file];
+            assignInMyNamespace("gc.items", tmp);
+        }
+    }
+
 }
 
 ##' Get file for dparser arguments
@@ -317,79 +385,14 @@ dpGetFile <- function(file, fileext="", envir=parent.frame(1)){
 }
 
 
-##' A S4 class for dparser functions
-##'
-##' The data here is the function to be called.
-##'
-##' @slot env contains the environment where the grammar name and dll
-##'     files are stored.
-##' @slot .Data is the function data
-##'
-##'@keywords internal
-##'@export
-setClass("dparserFunction",
-         representation(
-             env="environment"),
-         contains="function")
-
-##' Print the s4 object
-##' @param x dparserFunction to print.
-##' @keywords internal
-##' @aliases show,dparserFunction-method
-setMethod("show", "dparserFunction", function(object){
-    cat("An object of class 'dparserFunction'\n");
-    dat <- object@.Data;
-    print(dat);
-    grammar <- object@env$grammar;
-    dll.file <- object@env$dll.file;
-    cat(sprintf("Grammar File: %s\nDll File: %s\n", grammar, dll.file));
-})
-
-gc.items <- c()
-
-##' Garbage collection for dpaser functions
-##'
-##' This will delete the dynamically created dll upon garbage
-##' collection.
-##'
-##' @template garbage
-##'
-##' @param env Environment that is being garbage collected.
-##' @return Nothing.
-##' @author Matthew L. Fidler
-##' @keywords internal
-##' @export
-gc.dparser <- function(env){
-    dll.file <- env$dll.file;
-    if (!is.na(gc.items[dll.file])){
-        if (gc.items[dll.file] > 1){
-            tmp <- gc.items;
-            tmp[dll.file] <- tmp[dll.file] - 1;
-            assignInMyNamespace("gc.items", tmp);
-        } else {
-            if (file.exists(dll.file)){
-                generated <- env$generated;
-                if ((generated && getOption("dpaser.rm.unnamed.parser.dll", TRUE)) ||
-                    (!generated && getOption("dpaser.rm.named.parser.dll", FALSE))){
-                    rc <- try(dyn.unload(dll.file), silent = TRUE);
-                    unlink(dll.file)
-                }
-            }
-            tmp <- gc.items;
-            tmp <- tmp[names(tmp) != dll.file];
-            assignInMyNamespace("gc.items", tmp);
-        }
-    }
-
-}
-
 ##' Create R-based Dparser tree walking function based on grammar
 ##'
 ##' Note R-based dparser tree walking works on Windows (with R tools)
 ##' Mac, or Linux. Linking to arbitrary c grammars works on any
 ##' platform.
 ##'
-##' @param grammar Dparser grammar
+##' @param grammar Dparser grammar filename (must be a file with a ".g"
+##'   extension)
 ##' @param start_state Start State (default 0)
 ##' @param save_parse_tree Save Parse Tree (default TRUE)
 ##' @param partial_parses Partial Parses (default FALSE)
@@ -423,7 +426,7 @@ gc.dparser <- function(env){
 ##' ## This creates the R based parsing function.  It requires
 ##' ## compilation and runs on most OSes, with the exception of solaris.
 ##' ## Windows requires Rtools to be installed.
-##' f <- dparse(system.file("tran.g", package = "dparser"),children_first=FALSE);
+##' f <- dparse(system.file("tran.g", package = "dparser"),children_first=FALSE)
 ##'
 ##' ## Once created, you may then use this function to parse an
 ##' ## arbitrary syntax file.  For example:
@@ -460,156 +463,142 @@ dparse <- function(grammar,
                    parse_size=1024,
                    verbose_level=0,
                    children_first=TRUE,
-                   ...){
-    lst <- dpGetFile(substitute(grammar), ".g", envir=parent.frame(1));
-    grammar <- lst$file;
+                   ...) {
+  if (!file.exists(grammar)) {
+    stop("'grammar' file doesn't exist")
+  }
+  grammar <- normalizePath(grammar)
+  .oldWd <- getwd()
+  setwd(tempdir())
+  on.exit(setwd(.oldWd))
+  lst <- list(file=grammar,
+              use_file_name=TRUE,
+              md5=digest::digest(grammar, file=TRUE))
+  save_parse_tree <- as.integer(save_parse_tree);
+  save_parse_tree <- as.integer(save_parse_tree);
+  partial_parses <- as.integer(partial_parses);
+  dont_compare_stacks <- as.integer(!compare_stacks);
+  notfixup <- as.integer(!fixup);
+  fixup_ebnf <- as.integer(fixup_ebnf);
+  nogreedy <- as.integer(nogreedy);
+  noheight <- as.integer(noheight);
+  md5 <- lst$md5;
+  gram <- gsub("([^A-Za-z0-9]|[-])", "_", basename(grammar))
+  pkg <- sprintf("%s_%s", gram, .Platform$r_arch)
+  dll.file <- sprintf("%s_%s%s", gram, .Platform$r_arch, .Platform$dynlib.ext);
+  if (file.exists(dll.file)){
+    dyn.load(dll.file);
+    sym <- getNativeSymbolInfo(sprintf('dparse_%s_digest', gram), PACKAGE=pkg);
+    tst.fn <- eval(bquote(function()(.(quote(.Call))(.(sym), PACKAGE=.(pkg)))));
+    tst <- tst.fn();
+    if (tst != md5){
+      dyn.unload(dll.file);
+      unlink(dll.file);
+    }
+  }
+  tmpf <- tempfile()
+  mkdparse(grammar, tmpf, grammar_ident=gram, ..., use_r_header=TRUE);
+  tmp <- readLines(tmpf)
+  unlink(tmpf)
+  ## could use brew but I prefer minimal dependencies.
+  tmp <- gsub("<%=digest%>", md5,
+              gsub("<%=pasertables%>", paste(tmp, collapse="\n"),
+                   gsub("<%=gram%>", gram, dpRparse())))
+
+  tmpd <- tempfile()
+  dir.create(tmpd)
+  owd <- getwd()
+  setwd(tmpd)
+  writeLines(tmp, sprintf("%s_%s.c", gram, .Platform$r_arch))
+  writeLines(sprintf("PKG_CFLAGS=-I\"%s\"\n",dpIncludeDir()), "Makevars")
+  cmd <- sprintf("%s/bin/R CMD SHLIB %s_%s.c",
+                 Sys.getenv("R_HOME"), gram, .Platform$r_arch)
+  do.call(system,list(cmd,ignore.stdout=!getOption("dparser.echo.compile", FALSE),
+                  ignore.stderr=!getOption("dparser.echo.compile", FALSE)))
+  dyn.load(dll.file)
+  fun <- eval(bquote(function(file,
+                              fn,
+                              skip_fn,
+                              envir=parent.frame(),
+                              ##
+                              start_state=.(start_state),
+                              save_parse_tree=.(save_parse_tree),
+                              partial_parses=.(partial_parses),
+                              compare_stacks=.(compare_stacks),
+                              commit_actions_interval=.(commit_actions_interval),
+                              fixup=.(fixup),
+                              fixup_ebnf=.(fixup_ebnf),
+                              nogreedy=.(nogreedy),
+                              noheight=.(noheight),
+                              use_file_name=.(use_file_name),
+                              parse_size=.(parse_size),
+                              verbose_level=.(verbose_level),
+                              children_first=.(children_first)
+                              ){
+    NULL
+  }))
+  sym <- getNativeSymbolInfo(sprintf('dparse_%s', gram), PACKAGE=pkg)
+  body <- bquote({
+    if (missing(skip_fn)){
+      skip_fn <- quote(dparser::dpDefaultSkip);
+    }
+    lst <- dpGetFile(substitute(file), envir=parent.frame(1));
+    file <- lst$file;
+    start_state         <- as.integer(start_state);
+    save_parse_tree     <- as.integer(save_parse_tree);
+    save_parse_tree     <- as.integer(save_parse_tree);
+    partial_parses      <- as.integer(partial_parses);
+    dont_compare_stacks <- as.integer(!compare_stacks);
+    notfixup            <- as.integer(!fixup);
+    fixup_ebnf          <- as.integer(fixup_ebnf);
+    nogreedy            <- as.integer(nogreedy);
+    noheight            <- as.integer(noheight);
     if (missing(use_file_name)){
-        use_file_name <- as.integer(lst$use_file_name);
+      use_file_name <- as.integer(lst$use_file_name);
     } else {
-        use_file_name <- as.integer(use_file_name);
+      use_file_name       <- as.integer(use_file_name);
     }
     if (!lst$use_file_name){
-        on.exit({unlink(grammar)});
+      on.exit(unlink(lst$file));
     }
-    save_parse_tree <- as.integer(save_parse_tree);
-    save_parse_tree <- as.integer(save_parse_tree);
-    partial_parses <- as.integer(partial_parses);
-    dont_compare_stacks <- as.integer(!compare_stacks);
-    notfixup <- as.integer(!fixup);
-    fixup_ebnf <- as.integer(fixup_ebnf);
-    nogreedy <- as.integer(nogreedy);
-    noheight <- as.integer(noheight);
-    md5 <- lst$md5;
-    if (lst$use_file_name){
-        gram <- gsub("[.]g", "", basename(grammar))
-    } else {
-        gram <- sprintf("dp_%s", md5);
-    }
-    pkg <- sprintf("%s_%s", gram, .Platform$r_arch)
-    dll.file <- sprintf("%s_%s%s", gram, .Platform$r_arch, .Platform$dynlib.ext);
-    if (file.exists(dll.file)){
-        dyn.load(dll.file);
-        sym <- getNativeSymbolInfo(sprintf('dparse_%s_digest', gram), PACKAGE=pkg);
-        tst.fn <- eval(bquote(function()(.(quote(.Call))(.(sym), PACKAGE=.(pkg)))));
-        tst <- tst.fn();
-        if (tst != md5){
-            dyn.unload(dll.file);
-            unlink(dll.file);
-        }
-    }
-    if (!file.exists(dll.file)){
-        tmpf <- tempfile()
-        mkdparse(grammar, tmpf, grammar_ident=gram, ..., use_r_header=TRUE);
-        tmp <- readLines(tmpf);
-        unlink(tmpf);
-        ## could use brew but I prefer minimal dependencies.
-        tmp <- gsub("<%=digest%>", md5,
-                    gsub("<%=pasertables%>", paste(tmp, collapse="\n"),
-                         gsub("<%=gram%>", gram, dpRparse())));
-
-        tmpd <- tempfile();
-        dir.create(tmpd);
-        owd <- getwd();
-        setwd(tmpd);
-        sink(sprintf("%s_%s.c", gram, .Platform$r_arch));
-        cat(tmp);
-        sink();
-        sink("Makevars");
-        cat(sprintf("PKG_CPPFLAGS=-I\"%s\"\n",dpIncludeDir()))
-        sink();
-        cmd <- sprintf("%s/bin/R CMD SHLIB %s_%s.c",
-                       Sys.getenv("R_HOME"), gram, .Platform$r_arch);
-        sh <- "system";
-        do.call(sh,list(cmd,ignore.stdout=!getOption("dparser.echo.compile", TRUE),
-                        ignore.stderr=!getOption("dparser.echo.compile", TRUE)));
-        setwd(owd);
-        file.copy(file.path(tmpd, dll.file), getwd());
-        unlink(tmpd, recursive=TRUE);
-    }
-    dyn.load(dll.file);
-    fun <- eval(bquote(function(file,
-                                fn,
-                                skip_fn,
-                                envir=parent.frame(),
-                                ##
-                                start_state=.(start_state),
-                                save_parse_tree=.(save_parse_tree),
-                                partial_parses=.(partial_parses),
-                                compare_stacks=.(compare_stacks),
-                                commit_actions_interval=.(commit_actions_interval),
-                                fixup=.(fixup),
-                                fixup_ebnf=.(fixup_ebnf),
-                                nogreedy=.(nogreedy),
-                                noheight=.(noheight),
-                                use_file_name=.(use_file_name),
-                                parse_size=.(parse_size),
-                                verbose_level=.(verbose_level),
-                                children_first=.(children_first)
-                                ){
-        NULL;
-    }));
-    sym <- getNativeSymbolInfo(sprintf('dparse_%s', gram), PACKAGE=pkg);
-    body <- bquote({
-        if (missing(skip_fn)){
-            skip_fn <- quote(dparser::dpDefaultSkip);
-        }
-        lst <- dpGetFile(substitute(file), envir=parent.frame(1));
-        file <- lst$file;
-        start_state         <- as.integer(start_state);
-        save_parse_tree     <- as.integer(save_parse_tree);
-        save_parse_tree     <- as.integer(save_parse_tree);
-        partial_parses      <- as.integer(partial_parses);
-        dont_compare_stacks <- as.integer(!compare_stacks);
-        notfixup            <- as.integer(!fixup);
-        fixup_ebnf          <- as.integer(fixup_ebnf);
-        nogreedy            <- as.integer(nogreedy);
-        noheight            <- as.integer(noheight);
-        if (missing(use_file_name)){
-            use_file_name <- as.integer(lst$use_file_name);
-        } else {
-            use_file_name       <- as.integer(use_file_name);
-        }
-        if (!lst$use_file_name){
-            on.exit(unlink(lst$file));
-        }
-        .(quote(.Call))(.(sym$address),
-            file,
-            start_state,
-            save_parse_tree,
-            partial_parses,
-            compare_stacks,
-            as.integer(commit_actions_interval),
-            fixup,
-            fixup_ebnf,
-            nogreedy,
-            noheight,
-            use_file_name,
-            as.integer(parse_size),
-            as.integer(verbose_level),
-            as.integer(children_first),
-            fn,
-            skip_fn,
-            envir);
-        return(invisible());
-    });
-    body(fun) <- body;
-    ret <- new("dparserFunction", env=new.env());
-    ret@.Data <- fun;
-    ret@env$generated <- (!lst$use_file_name);
-    ret@env$grammar <- normalizePath(grammar)
-    ret@env$dll.file <- normalizePath(dll.file)
-    ## Cleanup
-    if (any(names(gc.items) == ret@env$dll.file)){
-        tmp <- gc.items;
-        tmp[ret@env$dll.file] <- tmp[ret@env$dll.file] + 1;
-        assignInMyNamespace("gc.items", tmp);
-    } else {
-        tmp <- gc.items;
-        tmp[ret@env$dll.file] <- 1
-        assignInMyNamespace("gc.items", tmp);
-    }
-    reg.finalizer(ret@env, gc.dparser, onexit=TRUE);
-    return(ret);
+    .(quote(.Call))(.(sym$address),
+      file,
+      start_state,
+      save_parse_tree,
+      partial_parses,
+      compare_stacks,
+      as.integer(commit_actions_interval),
+      fixup,
+      fixup_ebnf,
+      nogreedy,
+      noheight,
+      use_file_name,
+      as.integer(parse_size),
+      as.integer(verbose_level),
+      as.integer(children_first),
+      fn,
+      skip_fn,
+      envir);
+    return(invisible());
+  });
+  body(fun) <- body;
+  ret <- new("dparserFunction", env=new.env());
+  ret@.Data <- fun;
+  ret@env$generated <- (!lst$use_file_name);
+  ret@env$grammar <- normalizePath(grammar)
+  ret@env$dll.file <- normalizePath(dll.file)
+  ## Cleanup
+  if (any(names(gc.items) == ret@env$dll.file)){
+    tmp <- gc.items;
+    tmp[ret@env$dll.file] <- tmp[ret@env$dll.file] + 1;
+    assignInMyNamespace("gc.items", tmp);
+  } else {
+    tmp <- gc.items;
+    tmp[ret@env$dll.file] <- 1
+    assignInMyNamespace("gc.items", tmp);
+  }
+  reg.finalizer(ret@env, gc.dparser, onexit=TRUE);
+  return(ret)
 }
 
 ##' Default skip function for darsing grammar

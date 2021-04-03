@@ -4,14 +4,26 @@
 \alias{mkdparse}
 \title{mkdparse dparser grammer c}
 \usage{
-mkdparse(file, outputFile, set_op_priority_from_rule = FALSE,
-  right_recursive_BNF = FALSE, states_for_whitespace = TRUE,
-  states_for_all_nterms = FALSE, tokenizer = FALSE,
-  token_type = c("#define", "enum"), longest_match = FALSE,
-  grammar_ident = "gram", ident_from_filename = FALSE, scanner_blocks = 4,
-  write_line_directives = TRUE, write_header = c("IfEmpty", TRUE, FALSE),
-  rdebug = FALSE, verbose = FALSE, write_extension = "c",
-  use_r_header = TRUE)
+mkdparse(
+  file,
+  outputFile,
+  set_op_priority_from_rule = FALSE,
+  right_recursive_BNF = FALSE,
+  states_for_whitespace = TRUE,
+  states_for_all_nterms = FALSE,
+  tokenizer = FALSE,
+  token_type = c("#define", "enum"),
+  longest_match = FALSE,
+  grammar_ident = "gram",
+  ident_from_filename = FALSE,
+  scanner_blocks = 4,
+  write_line_directives = TRUE,
+  write_header = c("IfEmpty", TRUE, FALSE),
+  rdebug = FALSE,
+  verbose = FALSE,
+  write_extension = "c",
+  use_r_header = TRUE
+)
 }
 \arguments{
 \item{file}{File name of grammer to parse.}
@@ -98,7 +110,7 @@ Make a dparser c file based on a grammer
 \details{
 Uses a grammer file to create a c file for parsing.
 
-mkdparser is a scannerless GLR parser generator based on the
+ mkdparser is a scannerless GLR parser generator based on the
  Tomita algorithm. It is self-hosted and very easy to
  use. Grammars are written in a natural style of EBNF and regular
  expressions and support both speculative and final actions.
@@ -700,7 +712,9 @@ rees.  This may be of some assistence in disambiguating a grammar.
 \examples{
 
 ## This makes the ANSI c grammar file to parse C code:
-mkdparse(system.file("ansic.test.g", package = "dparser"),"ansic_gram.c", grammar_ident="ascii_C");
+mkdparse(system.file("ansic.test.g", package = "dparser"),
+        file.path(tempdir(), "ansic_gram.c"),
+         grammar_ident="ascii_C")
 }
 \author{
 Matthew L. Fidler for R interface, John Plevyak for

@@ -4,14 +4,27 @@
 \alias{dparse}
 \title{Create R-based Dparser tree walking function based on grammar}
 \usage{
-dparse(grammar, start_state = 0, save_parse_tree = TRUE,
-  partial_parses = FALSE, compare_stacks = TRUE,
-  commit_actions_interval = 100, fixup = TRUE, fixup_ebnf = FALSE,
-  nogreedy = FALSE, noheight = FALSE, use_file_name = TRUE,
-  parse_size = 1024, verbose_level = 0, children_first = TRUE, ...)
+dparse(
+  grammar,
+  start_state = 0,
+  save_parse_tree = TRUE,
+  partial_parses = FALSE,
+  compare_stacks = TRUE,
+  commit_actions_interval = 100,
+  fixup = TRUE,
+  fixup_ebnf = FALSE,
+  nogreedy = FALSE,
+  noheight = FALSE,
+  use_file_name = TRUE,
+  parse_size = 1024,
+  verbose_level = 0,
+  children_first = TRUE,
+  ...
+)
 }
 \arguments{
-\item{grammar}{Dparser grammar}
+\item{grammar}{Dparser grammar filename (must be a file with a ".g"
+extension)}
 
 \item{start_state}{Start State (default 0)}
 
@@ -81,7 +94,7 @@ removes parsers created from grammar files.}
 ## This creates the R based parsing function.  It requires
 ## compilation and runs on most OSes, with the exception of solaris.
 ## Windows requires Rtools to be installed.
-f <- dparse(system.file("tran.g", package = "dparser"),children_first=FALSE);
+f <- dparse(system.file("tran.g", package = "dparser"),children_first=FALSE)
 
 ## Once created, you may then use this function to parse an
 ## arbitrary syntax file.  For example:
@@ -96,7 +109,7 @@ if (t < 0.02 | t > 99.98){
 ", function(name, value, pos, depth){
     ## This prints the name, value, position and depth passed to the
     ##parsing function.
-    cat(sprintf("name:\%s;value:\%s;pos:\%s;depth:\%s\\n", name, value, pos,
+    cat(sprintf("name:\%s;value:\%s;pos:\%s;depth:\%s\n", name, value, pos,
                  depth));
 })
 

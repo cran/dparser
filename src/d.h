@@ -19,69 +19,87 @@
 #endif
 #include <limits.h>
 #include <sys/types.h>
-#ifndef __MINGW32__
+#if !defined(__MINGW32__) && !defined(WIN32)
 #include <sys/mman.h>
 #include <sys/uio.h>
 #endif
+#if !defined(WIN32)
 #include <unistd.h>
+#include <sys/time.h>
+#include <dirent.h>
+#endif
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <time.h>
-#include <sys/time.h>
-#include <sys/stat.h>
-#include <dirent.h>
 #include <ctype.h>
 #include <string.h>
 #include <R.h>
 #include <Rinternals.h>
 #define D_MAJOR_VERSION 1
-#define D_MINOR_VERSION 30
-#define D_BUILD_VERSION "R-524864373207e13ffc36b90c83c0995b74fcddbe"
+#define D_MINOR_VERSION 31
+#define D_BUILD_VERSION "R-e9b105505a97b5b73e9781ef9b79e60f43d4944c"
+#include <strings.h>
 
 #ifdef LEAK_DETECT
 #define GC_DEBUG
 #include "gc.h"
+#define MALLOC(n) GC_MALLOC(n)
+#define CALLOC(m, n) GC_MALLOC((m) * (n))
+#define FREE(p) GC_FREE(p)
+#define REALLOC(p, n) GC_REALLOC((p), (n))
 #define CHECK_LEAKS() GC_gcollect()
 #else
 #ifdef USE_GC
 #include "gc.h"
+#define MALLOC GC_MALLOC
+#define REALLOC GC_REALLOC
+#define FREE(_x)
 #define malloc dont_use_malloc_use_MALLOC_instead
-#define relloc dont_use_realloc_use_R_chk_realloc_instead
-#define free dont_use_free_use_Free_instead
+#define relloc dont_use_realloc_use_REALLOC_instead
+#define free dont_use_free_use_FREE_instead
 #else
+#define MALLOC malloc
+#define REALLOC realloc
+#define FREE free
 #endif
 #endif
 
-// enough already with the signed/unsiged char issues
+/* enough already with the signed/unsiged char issues
+ */
 #define isspace_(_c) isspace((unsigned char)(_c))
 #define isdigit_(_c) isdigit((unsigned char)(_c))
 #define isxdigit_(_c) isxdigit((unsigned char)(_c))
 #define isprint_(_c) isprint((unsigned char)(_c))
 
-#define D_VERSION			(\
-(D_MAJOR_VERSION << 24) + (D_MINOR_VERSION << 16) + \
-D_BUILD_VERSION)
-                         
-/* Compilation Options 
-*/
+/* Compilation Options
+ */
 
-#define round2(_x,_n) ((_x + ((_n)-1)) & ~((_n)-1))
-#define tohex1(_x) \
-((((_x)&15) > 9) ? (((_x)&15) - 10 + 'A') : (((_x)&15) + '0'))
-#define tohex2(_x) \
-((((_x)>>4) > 9) ? (((_x)>>4) - 10 + 'A') : (((_x)>>4) + '0'))
-#define numberof(_x) ((sizeof(_x))/(sizeof((_x)[0])))
+#define round2(_x, _n) ((_x + ((_n)-1)) & ~((_n)-1))
+#define tohex1(_x) ((((_x)&15) > 9) ? (((_x)&15) - 10 + 'A') : (((_x)&15) + '0'))
+#define tohex2(_x) ((((_x) >> 4) > 9) ? (((_x) >> 4) - 10 + 'A') : (((_x) >> 4) + '0'))
+#define numberof(_x) ((sizeof(_x)) / (sizeof((_x)[0])))
 
 typedef int8_t int8;
 typedef uint8_t uint8;
 typedef int32_t int32;
 typedef uint32_t uint32;
 typedef int64_t int64;
-typedef uint64_t  uint64;
+typedef uint64_t uint64;
 typedef int16_t int16;
 typedef uint16_t uint16;
 typedef unsigned int uint;
 
+#ifdef D_DEBUG
+#define DBG(_x)            \
+  if (d_debug_level > 1) { \
+    _x;                    \
+  }
+#else
+#define DBG(_x)
+#endif
+
 #include "dparse.h"
+
 #include "util.h"
 #include "gram.h"
 #include "lr.h"
@@ -91,14 +109,6 @@ typedef unsigned int uint;
 #include "write_tables.h"
 #include "read_binary.h"
 
-#ifdef D_DEBUG
-#define DBG(_x) if (d_debug_level>1) { _x; }
-#else
-#define DBG(_x)
-#endif
-
 void d_version(char *);
-
-#define USE_SCANNER		1
 
 #endif
