@@ -1,9 +1,9 @@
-e8af1d7657ef7437f97789813325eb30 *DESCRIPTION
+624398bcb6024bc7e552d2833c1c052f *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 059790321f9ea876b835dba159e4b7a5 *NAMESPACE
-411f10316769dfe787d97fa726aaa22c *NEWS.md
+2e7df20c6a78fabe2ff7a1779c45c16a *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
-47dd81e2f9a2009b8298f0f0dda10ae3 *R/dparser.R
+3dcc6dda95baed5e1295cd3a79f17f89 *R/dparser.R
 57f7b80453f221b0a4cbf6713da0c794 *R/version.R
 01db6666840f0930fb5f0dfdefa05631 *inst/ansic.test.g
 1daf1a81b86e5caef0cdbeffdc2f1bdd *inst/tran.g
@@ -391,7 +391,7 @@ f0d6978ab4072da3e06619b76c368bd3 *tests/testthat/sample.test.g.9
 5a9f0fe205385811709136900b666005 *tests/testthat/sample.test.g.9.out
 fdab4e8a74785e1762f90aceffb45c55 *tests/testthat/sample_parser.c
 bf2dd8e3a3e5f740216ffb196adc95e3 *tests/testthat/test-arbitrary.R
-aa98bd670a4e4143013742b5aa6a6c9a *tests/testthat/test-dparser.R
+bb1723174693eab5b097b38d69b8f383 *tests/testthat/test-dparser.R
 52da385655aa020b682699057336e9ff *tests/testthat/test-envir.R
 a9895345525efe5064ae6c8bf07d71c1 *tests/testthat/test-unlink.R
 1daf1a81b86e5caef0cdbeffdc2f1bdd *tests/testthat/tran.g
