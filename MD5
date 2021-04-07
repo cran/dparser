@@ -1,10 +1,10 @@
-624398bcb6024bc7e552d2833c1c052f *DESCRIPTION
+966ba0ddb02309701cd041de97432722 *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 059790321f9ea876b835dba159e4b7a5 *NAMESPACE
-2e7df20c6a78fabe2ff7a1779c45c16a *NEWS.md
+7842378eec973b70ab8a655377bae98a *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
 3dcc6dda95baed5e1295cd3a79f17f89 *R/dparser.R
-57f7b80453f221b0a4cbf6713da0c794 *R/version.R
+f7826cfd8b9d0c72989b8edf2713591a *R/version.R
 01db6666840f0930fb5f0dfdefa05631 *inst/ansic.test.g
 1daf1a81b86e5caef0cdbeffdc2f1bdd *inst/tran.g
 88021ad6ddb3376f60568d22bfdc74a4 *man/dpDefaultSkip.Rd
@@ -49,7 +49,7 @@ e360734c027f709fdf0a8911f78f38b8 *src/read_binary.h
 6d3b0170fdd9d48bdbf41c4e32437551 *src/util.c
 c2cc5ea0c6e4a676d1e79f361c114be4 *src/util.h
 3375a804cf87d2654fb87f05800e97c0 *src/version.c
-ed5022a8f094d54a380fee5436b2f22c *src/write_tables.c
+42825b2e28c11cc3be4813494f1242ff *src/write_tables.c
 6e4118867a792be598c3fa0ff9c5fc6f *src/write_tables.h
 f42db2ce336ccdfde2e4cc75a45980eb *tests/testthat.R
 7ef6641defe60b3be05d318d02553764 *tests/testthat/ansic.test.g
@@ -391,7 +391,7 @@ f0d6978ab4072da3e06619b76c368bd3 *tests/testthat/sample.test.g.9
 5a9f0fe205385811709136900b666005 *tests/testthat/sample.test.g.9.out
 fdab4e8a74785e1762f90aceffb45c55 *tests/testthat/sample_parser.c
 bf2dd8e3a3e5f740216ffb196adc95e3 *tests/testthat/test-arbitrary.R
-bb1723174693eab5b097b38d69b8f383 *tests/testthat/test-dparser.R
+1fa8e8a96e8fec6da11c6c383d862ccd *tests/testthat/test-dparser.R
 52da385655aa020b682699057336e9ff *tests/testthat/test-envir.R
 a9895345525efe5064ae6c8bf07d71c1 *tests/testthat/test-unlink.R
 1daf1a81b86e5caef0cdbeffdc2f1bdd *tests/testthat/tran.g
