@@ -1,7 +1,7 @@
-e4ca55cd93328efa784fe7095bd3a6c7 *DESCRIPTION
+0598cf6469b0422ab99a667761209fac *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 a2e6f1c386c8402ca0ae200bcdb285b3 *NAMESPACE
-9525cb16d0ae1ca17dadaf6041db5396 *NEWS.md
+6cd00c3e68f46064c59c6393f27d2205 *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
 c1a63009be9791be51341cf3acb5a9aa *R/dparser.R
 976863a453c8b1add7e12c04b1b8b613 *R/version.R
@@ -34,7 +34,7 @@ c8fb7e2e42f4d79b194f37f52a3c1e1f *src/dparser.h
 b19a84b6ec1785148a229e36e02bd62a *src/install.libs.R
 c01f6d57ca437da89d29e87b949ba00f *src/lex.c
 ecd23e7ac5907c1bb2e63d8319bffae5 *src/lex.h
-4fd76787e7b2d1711312927bd34acf7f *src/lr.c
+af6bb5072613e2fc435b537397a5375b *src/lr.c
 0742b1284088b9885770f4d9c12413a3 *src/lr.h
 b9c30585cfbe0cb973a5c8a5362a9e5f *src/mkdparse.c
 632fda547c7af55c3ca04fed28eeee3d *src/mkdparse.h
