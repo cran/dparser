@@ -1,6 +1,6 @@
 Package: dparser
 Title: Port of 'Dparser' Package
-Version: 1.3.1-7
+Version: 1.3.1-8
 Authors@R: c(person("Matthew", "Fidler", email = "matthew.fidler@gmail.com", role = c("aut", "cre")),
 	   person("John", "Plevyak", role = c("aut", "cph"), email = "jplevyak@gmail.com"))
 Imports: digest, methods
@@ -22,9 +22,9 @@ URL: https://nlmixr2.github.io/dparser-R/,
 Encoding: UTF-8
 RoxygenNote: 7.2.1
 NeedsCompilation: yes
-Packaged: 2022-10-09 14:52:15 UTC; matt
+Packaged: 2022-10-29 03:10:35 UTC; matt
 Author: Matthew Fidler [aut, cre],
   John Plevyak [aut, cph]
 Maintainer: Matthew Fidler <matthew.fidler@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-10-09 19:30:07 UTC
+Date/Publication: 2022-10-29 07:50:26 UTC

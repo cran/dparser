@@ -1,7 +1,7 @@
-0598cf6469b0422ab99a667761209fac *DESCRIPTION
+543677a7417f988210aeacfddd49a2e0 *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 a2e6f1c386c8402ca0ae200bcdb285b3 *NAMESPACE
-6cd00c3e68f46064c59c6393f27d2205 *NEWS.md
+7ea2c4e41ba7f4484a4ac49a6e28a808 *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
 c1a63009be9791be51341cf3acb5a9aa *R/dparser.R
 976863a453c8b1add7e12c04b1b8b613 *R/version.R
@@ -24,7 +24,7 @@ c851a8870e74d5d0397f91ff707cb235 *src/d.h
 1c78b50c5de58554b86e70fecfd8bf54 *src/dparse.h
 4a312ef9df795155893a9362ceef1f59 *src/dparse_tables.h
 e8a7be9b3b28654dd5cac55f60f6c388 *src/dparser.c
-c8fb7e2e42f4d79b194f37f52a3c1e1f *src/dparser.h
+b8409078ef038e6a984c31870a4bfe7b *src/dparser.h
 34050d13a08da929af4c2df9e76460cf *src/dsymtab.c
 09654da76c64956d4e5f20ec3d037bbf *src/dsymtab.h
 2be14ce67a450c5b2cc9cd03368bbc4d *src/gram.c
@@ -46,9 +46,9 @@ a73a2133c0c92ae02ef6e79ac54a7faf *src/read_binary.c
 e360734c027f709fdf0a8911f78f38b8 *src/read_binary.h
 53eda15ebea104ee7c1135bc6b398ac0 *src/scan.c
 39c0e6dbee02b96f4e5d00a9f15c9761 *src/scan.h
-6d3b0170fdd9d48bdbf41c4e32437551 *src/util.c
+0a8a3b735db3393578166b2a83f8652e *src/util.c
 c2cc5ea0c6e4a676d1e79f361c114be4 *src/util.h
-3375a804cf87d2654fb87f05800e97c0 *src/version.c
+305c0b0e60d74d79f2e7dc3ef53b910e *src/version.c
 fe7177b0436c530669e0704d4d9f66de *src/write_tables.c
 6e4118867a792be598c3fa0ff9c5fc6f *src/write_tables.h
 f42db2ce336ccdfde2e4cc75a45980eb *tests/testthat.R
