@@ -1,7 +1,7 @@
-543677a7417f988210aeacfddd49a2e0 *DESCRIPTION
+373a4a7fcd9f8828cabf4b5a19001183 *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 a2e6f1c386c8402ca0ae200bcdb285b3 *NAMESPACE
-7ea2c4e41ba7f4484a4ac49a6e28a808 *NEWS.md
+525a31566ac9b77136060a086a046224 *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
 c1a63009be9791be51341cf3acb5a9aa *R/dparser.R
 976863a453c8b1add7e12c04b1b8b613 *R/version.R
@@ -19,7 +19,7 @@ a78ca2cef7b49577d4f1723eb2897fa1 *man/dparserFunction-class.Rd
 be1d16ba6aca41a6ff3f80850eb276e1 *man/gc.dparser.Rd
 89d1736a1e201416d5d69c79985b4c7f *man/mkdparse.Rd
 a6312a1c74b0c4ea14aad7a974f686bb *man/show-dparserFunction-method.Rd
-9185841403d1c65d948057413e0e02e9 *src/Makevars
+84f0ce34c0bcdf69f92f2cf8d657506e *src/Makevars
 c851a8870e74d5d0397f91ff707cb235 *src/d.h
 1c78b50c5de58554b86e70fecfd8bf54 *src/dparse.h
 4a312ef9df795155893a9362ceef1f59 *src/dparse_tables.h
@@ -49,7 +49,7 @@ e360734c027f709fdf0a8911f78f38b8 *src/read_binary.h
 0a8a3b735db3393578166b2a83f8652e *src/util.c
 c2cc5ea0c6e4a676d1e79f361c114be4 *src/util.h
 305c0b0e60d74d79f2e7dc3ef53b910e *src/version.c
-fe7177b0436c530669e0704d4d9f66de *src/write_tables.c
+c5fd28adbafc4ca2bf6a78996a8e6e8d *src/write_tables.c
 6e4118867a792be598c3fa0ff9c5fc6f *src/write_tables.h
 f42db2ce336ccdfde2e4cc75a45980eb *tests/testthat.R
 7ef6641defe60b3be05d318d02553764 *tests/testthat/ansic.test.g
@@ -168,11 +168,9 @@ daa8075d6ac5ff8d0c6d4650adb4ef29 *tests/testthat/g30.test.g.1
 6911d99bc01f370b57263c110cadf956 *tests/testthat/g31.test.g.1
 a54716410c20c39f94ffee65f8955e95 *tests/testthat/g31.test.g.1.check
 a54716410c20c39f94ffee65f8955e95 *tests/testthat/g31.test.g.1.out
-bcbac1032c78601d2f802cdf4b83b769 *tests/testthat/g32.test.g
 0beabaf8ef4a93def09236e9afe5f1e9 *tests/testthat/g32.test.g.1
 26801e745bd291f33602f7458383a2a2 *tests/testthat/g32.test.g.1.check
 26801e745bd291f33602f7458383a2a2 *tests/testthat/g32.test.g.1.out
-46ad8760f81b5e2e1f5c492fa7182137 *tests/testthat/g33.test.g
 6911d99bc01f370b57263c110cadf956 *tests/testthat/g33.test.g.1
 cba24ad4f7aad52f5f29714e2e0b33f7 *tests/testthat/g33.test.g.1.check
 cba24ad4f7aad52f5f29714e2e0b33f7 *tests/testthat/g33.test.g.1.out
@@ -243,11 +241,9 @@ bcb20409c0bab4cd42f79682686644cb *tests/testthat/g44.test.g.1.out
 4aad0135122994d26d0f45724372827a *tests/testthat/g46.test.g.1
 6bec48f5ff173b546a009782ede660da *tests/testthat/g46.test.g.1.check
 6bec48f5ff173b546a009782ede660da *tests/testthat/g46.test.g.1.out
-220704051517a88f20dc7f4f0baac8c7 *tests/testthat/g47.test.g
 f2703b9bdf99ae99be0668a78ce5825c *tests/testthat/g47.test.g.1
 46644b46a494eaada6610dc053bad97c *tests/testthat/g47.test.g.1.check
 46644b46a494eaada6610dc053bad97c *tests/testthat/g47.test.g.1.out
-c3983e9d61055319b7d5824dbf7c29b4 *tests/testthat/g48.test.g
 3c96e5169486f07524a2e2fde1b74002 *tests/testthat/g48.test.g.1
 2bf12f917c67d7066efe6ef215800ff9 *tests/testthat/g48.test.g.1.check
 2bf12f917c67d7066efe6ef215800ff9 *tests/testthat/g48.test.g.1.out
@@ -282,7 +278,6 @@ b57e085fc17047c40de62795905e0f7a *tests/testthat/g9.test.g
 3162647da50c9eccc9273576da5c7e46 *tests/testthat/g9.test.g.1
 e2ab8050e706a30664538bdd99b306f2 *tests/testthat/g9.test.g.1.check
 e2ab8050e706a30664538bdd99b306f2 *tests/testthat/g9.test.g.1.out
-08d4d8d3eeb30703a58f1264e1674378 *tests/testthat/python.test.g
 708775431a9d78dece6508f4200a77c4 *tests/testthat/python.test.g.1
 300eee9fbbbf69641628b4f521f7129e *tests/testthat/python.test.g.1.check
 300eee9fbbbf69641628b4f521f7129e *tests/testthat/python.test.g.1.out
