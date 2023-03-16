@@ -1,7 +1,7 @@
-373a4a7fcd9f8828cabf4b5a19001183 *DESCRIPTION
+a4f8f36bec3c63587ce94b2252267d6e *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 a2e6f1c386c8402ca0ae200bcdb285b3 *NAMESPACE
-525a31566ac9b77136060a086a046224 *NEWS.md
+d2c552c83a2565cd5222a4999b8ad8fa *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
 c1a63009be9791be51341cf3acb5a9aa *R/dparser.R
 976863a453c8b1add7e12c04b1b8b613 *R/version.R
@@ -25,6 +25,7 @@ c851a8870e74d5d0397f91ff707cb235 *src/d.h
 4a312ef9df795155893a9362ceef1f59 *src/dparse_tables.h
 e8a7be9b3b28654dd5cac55f60f6c388 *src/dparser.c
 b8409078ef038e6a984c31870a4bfe7b *src/dparser.h
+fbe879fb5075d7dad2e44eb785b55754 *src/dparser2.h
 34050d13a08da929af4c2df9e76460cf *src/dsymtab.c
 09654da76c64956d4e5f20ec3d037bbf *src/dsymtab.h
 2be14ce67a450c5b2cc9cd03368bbc4d *src/gram.c
