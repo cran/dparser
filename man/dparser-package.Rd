@@ -156,7 +156,9 @@ U+03c9 \{ printf("omega\n"); \}
 hexint: "(0x|0X)[0-9a-fA-F]+[uUlL]?";
 }
 \bold{Note:}  only the simple regular expression operators are currently supported. This include parens, square parens, ranges, and '*', '+', '?'.
-\itemize{\item  Terminal modifiers}{
+
+
+\itemize{\item Terminal modifiers}
 
 Terminals can contain embbed escape codes.  Including the standard
 C escape codes, the codes \\x and \\d permit inserting hex and
@@ -169,7 +171,7 @@ tokens which which represent the same string (e.g. ',').   For example,
 function_call: function '(' parameter ( ',' $name 'parameter_comma' parameter) ')';
 }
 
-It is now possible to use $0.symbol == ${string parameter_comma} to differentiate ParseNode ($0) between
+It is now possible to use $0.symbol == $\{string parameter_comma\} to differentiate ParseNode ($0) between
 a parameter comma node and say an initialization comma.
 
 Terminals ending in '/i' are case insensitive.  For example 'hi'/i
@@ -192,7 +194,6 @@ Notice how it can be mixed with regular string terminals.
 
 X: '1' ($\{scan ops_scan(ops, ops_cache)\} '2')*;
 
-}
 
 The user provides the 'ops_scan' function.  This example is from tests/g4.test.g in the source distribution.
 
@@ -274,9 +275,9 @@ for the substates must be disjoint.
 
 There are two ways to specify longest match disabiguation:
 globally as an option (-l) to make_dparser or locally with with a
-${declare longest_match ...}.  If global longest match
-disambiguation is \bold{ON}, it can be locally disabled with {$declare
-all_matches ...} .  As with Tokenizers above, local declarations
+$\{declare longest_match ...\}.  If global longest match
+disambiguation is \bold{ON}, it can be locally disabled with \{$declare
+all_matches ...\} .  As with Tokenizers above, local declarations
 operate on disjoint subsets of parsing states.
 }
 \item{Priorities and Associativity:}{
