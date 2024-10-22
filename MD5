@@ -1,7 +1,7 @@
-5f20f6efc41665e3185d8c620ed48a34 *DESCRIPTION
+8f595204c0e2737813781a19a12ea285 *DESCRIPTION
 6f5a35d563fd2591abdcaa6c6be43284 *LICENSE
 aa1df8ec54092ba20863e9c8480dc948 *NAMESPACE
-6e5afa9080c9a1b192ed80b317d9c052 *NEWS.md
+d844c63690e55fddda09f9f0042aa471 *NEWS.md
 df3ec36b333a9f2071ce3cf0d413cca1 *R/Rparse.R
 6afcf118f07194b265109cd47fe12a35 *R/dparser.R
 976863a453c8b1add7e12c04b1b8b613 *R/version.R
@@ -20,7 +20,7 @@ a78ca2cef7b49577d4f1723eb2897fa1 *man/dparserFunction-class.Rd
 be1d16ba6aca41a6ff3f80850eb276e1 *man/gc.dparser.Rd
 e16e4a1a4e84559a89953e204887c498 *man/mkdparse.Rd
 aa1e183718cfc7d587dccea9cbdb0680 *man/show-dparserFunction-method.Rd
-11c09530f0cb324665ac4916a58bdcca *src/Makevars
+a282b695d636bdad25093e0ce7f62a4b *src/Makevars
 87b468e3762679d11814cb62d466cee5 *src/d.h
 d9a30971ec31715bdf01293523e7258f *src/dparse.h
 bc60dd54aa9a2300960a92f6f4d0e149 *src/dparse_tables.h
@@ -44,7 +44,7 @@ d8a124ec40747a3996264982d6e599aa *src/mkdparse.h
 acffe5a893935bdca553d137b0f5ea25 *src/mkdparser.c
 746d0fc9761bf0138e8e0d3fed0df1f6 *src/parse.c
 b4eeff883ce9cdd6d96e4d313383106e *src/parse.h
-cfec0c4ab07e358b46d2ae7bf82e41b7 *src/rdparse.c
+f13f4075cbf5a95332c361512006127e *src/rdparse.c
 a73a2133c0c92ae02ef6e79ac54a7faf *src/read_binary.c
 66e86c254d8ada5dc5d447b567d211af *src/read_binary.h
 53eda15ebea104ee7c1135bc6b398ac0 *src/scan.c

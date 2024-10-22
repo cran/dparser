@@ -1,3 +1,8 @@
+# dparser 1.3.1-13
+
+- Changed `Makevars` header order, strict options so that `dparser`
+  will compile on older versions of R (#19, #20, #22)
+
 # dparser 1.3.1-12
 
 - Changed language access to not use `SET_TYPEOF` (as required by CRAN)

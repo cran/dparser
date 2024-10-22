@@ -1,12 +1,11 @@
-#include "gramgram.h"
-#include "d.h"
-#include "mkdparse.h"
-#include "dparse.h"
-#define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 #include <Rmath.h>
+#include "gramgram.h"
+#include "d.h"
+#include "mkdparse.h"
+#include "dparse.h"
 extern int d_use_file_name;
 extern char *d_file_name;
 extern int d_use_r_headers;
